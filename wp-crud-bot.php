@@ -66,8 +66,8 @@ function Kfp_Insert_post()
 
 
     /*Incio almacena informacion de formulario BLADE*/
-    $user_id        = sanitize_text_field($_POST['user_id']);          // obtiene el id del usuario 
-    $key_id         = sanitize_text_field($_POST['key_id']);           // obtiene el id del usuario 
+    $user_id        = sanitize_text_field($_GET['user_id']);          // obtiene el id del usuario 
+    $key_id         = sanitize_text_field($_GET['key_id']);           // obtiene el id del usuario 
     $nint           = sanitize_text_field($_GET['nint']);             // obtiene el id del usuario 
     $description    = sanitize_text_field($_GET['description']);      // obtiene el id del usuario 
     $comment_status = sanitize_text_field($_GET['comment_status']);
