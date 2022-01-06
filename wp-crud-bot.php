@@ -13,25 +13,34 @@
 */
 
 /******************************************************************************************/
-// Archivo : wp-crud
+// Archivo : 
 // Funcion : 
 
 /******************************************************************************************/
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
+/*Funciones requeridas para administrar y gestionar */
+
+// Funciones requeridas para gestionar archivos
+require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+require_once(ABSPATH . "wp-admin" . '/includes/file.php');
+require_once(ABSPATH . "wp-admin" . '/includes/media.php');
+// Funciones requeridas para gestionar la base de datos
+require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+
 /*Importa funciones de instalacion*/
 $wpbc_db_version = '1.1.0'; 
 
 /*Nombre base de datos*/
-$sist_name_file = 'crud_file';
-$sist_name_departament = 'crud_departament'; 
+$table_name_ping = 'crud_ping';
 $user_id = get_current_user_id();
 
 
 /******************************************************************************************/
 // Archivo : wp-crud-bot.php
-// Funcion : Kfp_Insert_form() 'funcion para el ingreso de datos'
+// Funcion : Kfp_Insert_post() 'funcion para el ingreso de datos'
 // Objetos : $wpdb->insert
 /******************************************************************************************/
 
@@ -46,63 +55,29 @@ function Kfp_Insert_post()
     /*Variables globales*/
     global $wpdb;                   					               // datos del sistema
     global $wpbc_db_version;        					               // Version del base de datos - utilizado para las actualizaciones
-    global $sist_name_file;         					               // Nombre de la tabla de General del sistema 
-    global $sist_name_departament;  					               // Nombre de la tabla de Depart 
+    global $table_name_ping;         					               // Nombre de la tabla de General del sistema 
     global $tabla_crud;             					               // nombre de la tabla de sistema
     global $user_id;                					               // ID del usuario
-    global $status_user;            					               // Perfil del usuario 
-    global $user_dirname;
-    global $upload_dir;
-    global $dir_file;               					               // Nombre de archivo a subir
-    global $global_data;            					               // Almacenamiento de datos Globales
-    global $file_name;  
-    global $wp_session;             					               // Inicio sesion variables
-    global $global_data;
+    global $key_id;                                                    // ID del usuario
 
-
-
-
-    $tabla_crud = $wpdb->prefix . $sist_name_file; 		               // objeto base de datos
-
+    $tabla_crud = $wpdb->prefix . $table_name_ping; 		               // objeto base de datos
 
     /*Incio almacena informacion de formulario BLADE*/
-    $user_id        = sanitize_text_field($_GET['user_id']);          // obtiene el id del usuario 
     $key_id         = sanitize_text_field($_GET['key_id']);           // obtiene el id del usuario 
-    $nint           = sanitize_text_field($_GET['nint']);             // obtiene el id del usuario 
-    $description    = sanitize_text_field($_GET['description']);      // obtiene el id del usuario 
-    $comment_status = sanitize_text_field($_GET['comment_status']);
-    $id_departament = sanitize_text_field($_GET['id_departament']);
-    $date           = sanitize_text_field($_GET['date']);
-    $dir_file_linux = sanitize_text_field($_GET['dir_file_linux']);
-    $dir_file_win   = sanitize_text_field($_GET['dir_file_win']);
-    $dir_file       = sanitize_text_field($_GET['dir_file']);
-    $status_id      = sanitize_text_field($_GET['status_id']);
-    
 
     /*Fin almacena informacion de formulario BLADE*/
-/*
-    $global_data = array(
-                'user_id'           => $user_id,
-                'key_id'            => $key_id, 
-                'nint'              => $nint, 
-                'description'       => $description, 
-                'comment_status'    => $comment_status,
-                'id_departament'    => $id_departament,
-                'date'              => $date,
-                'dir_file_linux'    => $dir_file_linux,
-                'dir_file_win'      => $dir_file_win,
-                'dir_file'          => $dir_file,
-                'status_id'         => $status_id,
-            );
-            */
-    $global_data = array(
-                'user_id'           => $user_id,
-                'key_id'            => $key_id, 
-    
-            );
 
+    $global_data = array(
+                'key_id'           => $key_id,
+            );
 
     $wpdb->insert($tabla_crud,$global_data);
+
+
+    echo '----->'.$wpbc_db_version.'</br>';
+    echo '----->'.$key_id.'</br>';
+    echo '----->'.$table_name_ping.'</br>';
+    echo '----->'.$tabla_crud.'</br>';
 
 }
 
@@ -110,28 +85,29 @@ function Kfp_Insert_post()
 
 
 
+function crud_install()
+{
+    /*Variables globales*/
+    global $wpdb;                                                      // datos del sistema
+    global $wpbc_db_version;                                           // Version del base de datos - utilizado para las actualizaciones
+    global $table_name_ping;                                            // Nombre de la tabla de General del sistema 
+    global $tabla_crud;                                                // nombre de la tabla de sistema
+    global $user_id;                                                   // ID del usuario
+    global $key_id;                                                    // ID del usuario
 
+    $table_name_file = $wpdb->prefix . $table_name_ping; 
 
+    $sql_file = "CREATE TABLE " . $table_name_ping . " (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        key_id VARCHAR (100) NOT NULL,
+        create_at datetime NOT NULL DEFAULT NOW(),
+        PRIMARY KEY (id)
+    );"; 
 
+    dbDelta($sql_file); 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+crud_install();
 
 
 
