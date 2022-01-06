@@ -13,21 +13,20 @@
 */
 
 /******************************************************************************************/
-// Archivo : 
-// Funcion : 
-
+// archivos     : wp-crud-bot.php
+// Funcion      :  
+// Objetos      : 
+// Descripcion  : Conjunto de variables para el uso del sistema
 /******************************************************************************************/
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
 /*Funciones requeridas para administrar y gestionar */
 
-// Funciones requeridas para gestionar archivos
-require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-require_once(ABSPATH . "wp-admin" . '/includes/file.php');
-require_once(ABSPATH . "wp-admin" . '/includes/media.php');
-// Funciones requeridas para gestionar la base de datos
-require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+require_once(ABSPATH . "wp-admin" . '/includes/image.php'   );  // Funciones requeridas para gestionar Imagenes
+require_once(ABSPATH . "wp-admin" . '/includes/file.php'    );  // Funciones requeridas para gestionar archivos
+require_once(ABSPATH . "wp-admin" . '/includes/media.php'   );  // Funciones requeridas para gestionar otros archivos
+require_once(ABSPATH . 'wp-admin/includes/upgrade.php'      );  // Funciones requeridas para gestionar la base de datos
 
 
 /*Importa funciones de instalacion*/
@@ -39,9 +38,10 @@ $user_id = get_current_user_id();
 
 
 /******************************************************************************************/
-// Archivo : wp-crud-bot.php
-// Funcion : Kfp_Insert_post() 'funcion para el ingreso de datos'
-// Objetos : $wpdb->insert
+// archivos     : wp-crud-bot.php
+// Funcion      : Kfp_Insert_post() 
+// Objetos      : $wpdb->insert
+// Descripcion  : 'funcion para el ingreso de datos'
 /******************************************************************************************/
 
 /*Inicio crear shortcode en la pagina de inicio */
