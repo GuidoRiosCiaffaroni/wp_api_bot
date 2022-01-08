@@ -36,8 +36,10 @@ do
   #echo $i " / " ${arraylength} " : " ${Data[$i-1]}
   #URLData=${Data[$i-1]}"&"
   URLData="${Data[$i-1]}${URLData}"
-  echo $URLData
+  #echo $URLData
 done
 
 URLGet=$URLBase$URLData
-echo $URLGet
+#echo $URLGet
+
+curl $URLGet

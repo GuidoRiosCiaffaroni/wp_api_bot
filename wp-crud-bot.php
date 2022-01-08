@@ -65,15 +65,19 @@ function Kfp_Insert_post()
     global $data_sql_objet;             // Objeto de Base de Datos
     global $sql_query;                  // Almacena la consulta  
 
+
+
     $data_sql_objet = $wpdb->prefix . $table_data_name; 		               // objeto base de datos
 
     /*Incio almacena informacion de formulario BLADE*/
-    $server_name         = sanitize_text_field($_GET['server_name']);           // nombre del servidor
+    $ServerDate         = sanitize_text_field($_GET['ServerDate']);           // Fecha del Servidor
+    $ServerName         = sanitize_text_field($_GET['ServerName']);           // Nombre del Servidor
 
     /*Fin almacena informacion de formulario BLADE*/
 
     $global_data = array(
-                'server_name'           => $server_name,
+                'ServerDate'        => $ServerDate,
+                'ServerName'        => $ServerName,            
             );
 
     $wpdb->insert($data_sql_objet,$global_data);
@@ -83,7 +87,8 @@ function Kfp_Insert_post()
     echo '$table_data_name              ----->'.$table_data_name.'</br>';
     echo '$data_sql_objet               ----->'.$data_sql_objet.'</br>';
     echo '$sql_query                    ----->'.$sql_query.'</br>';
-    echo '$server_name                  ----->'.$server_name.'</br>';    
+    echo '$ServerDate                   ----->'.$ServerDate.'</br>';
+    echo '$ServerName                   ----->'.$ServerName.'</br>';        
 
 }
 
@@ -115,7 +120,8 @@ function crud_install()
 
     $sql_query = "CREATE TABLE " . $data_sql_objet . " (
         id int(11) NOT NULL AUTO_INCREMENT,
-        server_name VARCHAR (100) NOT NULL,
+        ServerDate VARCHAR (100) NOT NULL,
+        ServerName VARCHAR (100) NOT NULL,
         create_at datetime NOT NULL DEFAULT NOW(),
         PRIMARY KEY (id)
     );"; 
