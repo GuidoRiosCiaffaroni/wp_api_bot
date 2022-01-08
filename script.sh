@@ -10,7 +10,7 @@ UserPassword='GR123456.'
 Data[1]='ServerUser='$UserPassword
 
 UserToken='qwerty'
-Data[2]='UserToken='$UserUserToken
+Data[2]='UserToken='$UserToken
 
 ServerDate=`date "+%d-%m-%y_%H-%M-%S"`
 Data[3]='ServerDate='$ServerDate
@@ -27,8 +27,10 @@ arraylength=${#Data[@]}
 
 for (( i=1; i<${arraylength}+1; i++ ));
 do
-  echo $i " / " ${arraylength} " : " ${Data[$i-1]}
-  echo $URLData = ${Data[$i-1]}
+  #echo $i " / " ${arraylength} " : " ${Data[$i-1]}
+  URLData=${Data[$i-1]}"&"
+  URLData="${Data[$i-1]}${URLData}"
+  echo $URLData
 done
 
 
