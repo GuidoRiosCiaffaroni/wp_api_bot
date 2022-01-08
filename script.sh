@@ -2,21 +2,27 @@
 URLApiData='http://puebadominio.royalwebhosting.net'
 APIPage='api'
 URLData=''
+URLGet=''
 
+#Nombre del usuario
 UserSystem='Grios'
-Data[0]='ServerUser='$UserSystem
+Data[0]='ServerUser='$UserSystem'&'
 
+#Password 
 UserPassword='GR123456.'
-Data[1]='ServerPassword='$UserPassword
+Data[1]='ServerPassword='$UserPassword'&'
 
+#Token para validacion
 UserToken='qwerty'
-Data[2]='UserToken='$UserToken
+Data[2]='UserToken='$UserToken'&'
 
+#Fecha del Servidor
 ServerDate=`date "+%d-%m-%y_%H-%M-%S"`
-Data[3]='ServerDate='$ServerDate
+Data[3]='ServerDate='$ServerDate'&'
 
+#Nombre del Servidor
 ServerName=$(hostname)
-Data[4]='ServerName='$ServerName
+Data[4]='ServerName='$ServerName'&'
 
 
 #URLQuery=$URLApiData'/'$APIPage'/?'${Data[0]}
@@ -29,71 +35,9 @@ for (( i=1; i<${arraylength}+1; i++ ));
 do
   #echo $i " / " ${arraylength} " : " ${Data[$i-1]}
   #URLData=${Data[$i-1]}"&"
-  URLData="${Data[$i-1]}${URLData}&"
+  URLData="${Data[$i-1]}${URLData}"
   echo $URLData
 done
 
-
-
-#while read -r $Data; do
-#    printf $Data+=( "$Data" )
-#done
-
-
-
-
-
-
-#for str in ${Data[@]}; do
-#  printf $str
-#  	$URLData = $str
-#  	$URLData = "$URLData$str"   
-#done
-
-
-#for i in ${!Data[@]}; do
-#  printf "element $i is ${Data[$i]}"
-#done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#echo $ServerDate
-#echo $ServerName
-#echo $URLApiData
-#echo $URLQuery
-
-#NAME[0]="Zara"
-#NAME[1]="Qadir"
-#NAME[2]="Mahnaz"
-#NAME[3]="Ayan"
-#NAME[4]="Daisy"
-#echo "First Index: ${NAME[0]}"
-#echo "Second Index: ${NAME[1]}"
-#echo "First Method: ${NAME[*]}"
-#echo "Second Method: ${NAME[@]}"
-
-#for i in "${NAME[@]}"; do echo "$i"; done
-#for i in "${NAME[*]}"; do echo "$i"; done
-#echo ${NAME[0]}${NAME[1]}
-
+URLGet=$URLBase$URLData
+echo $URLGet
