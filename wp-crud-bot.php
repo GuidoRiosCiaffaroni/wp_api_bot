@@ -29,12 +29,22 @@ require_once(ABSPATH . "wp-admin" . '/includes/media.php'   );  // Funciones req
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php'      );  // Funciones requeridas para gestionar la base de datos
 
 
+    /*Variables globales*/
+    global $wpdb;                              // datos del sistema
+    global $wpbc_db_version_data;              // Version del base de datos - utilizado para las actualizaciones
+    global $table_data_server_name;            // Objeto de Base de Datos
+    global $data_sql_objet;                    // Nombre de la tabla de General del sistema 
+    global $sql_query;                         // Nombre de la tabla de General del sistema     
+ 
+
+
 /*Importa funciones de instalacion*/
-$wpbc_db_version = '1.1.0'; 
+$wpbc_db_version_data = '1.1.0'; 
 
 /*Nombre base de datos*/
-$table_name_ping = 'crud_ping';
-$user_id = get_current_user_id();
+$table_data_name = 'api_rest_data';
+//$user_id = get_current_user_id();
+
 
 
 /******************************************************************************************/
@@ -44,70 +54,81 @@ $user_id = get_current_user_id();
 // Descripcion  : 'funcion para el ingreso de datos'
 /******************************************************************************************/
 
-/*Inicio crear shortcode en la pagina de inicio */
-add_shortcode('kfp_ShortCode_Insert_post', 'Kfp_Insert_post');
-/*Fin crear shortcode enla pagina de inicio*/ 
-
-/*Inicio funcion para crear shortcode en la pagina de inicio */
+/**** Inicio procedimiento para ingreso de datos ****/
 function Kfp_Insert_post() 
 {
 
     /*Variables globales*/
-    global $wpdb;                   					               // datos del sistema
-    global $wpbc_db_version;        					               // Version del base de datos - utilizado para las actualizaciones
-    global $table_name_ping;         					               // Nombre de la tabla de General del sistema 
-    global $tabla_crud;             					               // nombre de la tabla de sistema
-    global $user_id;                					               // ID del usuario
-    global $key_id;                                                    // ID del usuario
+    global $wpdb;                       // datos del sistema
+    global $wpbc_db_version_data;       // Version del base de datos - utilizado para las actualizaciones
+    global $table_data_name;            // Nombre de la base de datos
+    global $data_sql_objet;             // Objeto de Base de Datos
+    global $sql_query;                  // Almacena la consulta  
 
-    $tabla_crud = $wpdb->prefix . $table_name_ping; 		               // objeto base de datos
+    $data_sql_objet = $wpdb->prefix . $table_data_name; 		               // objeto base de datos
 
     /*Incio almacena informacion de formulario BLADE*/
-    $key_id         = sanitize_text_field($_GET['key_id']);           // obtiene el id del usuario 
+    $server_name         = sanitize_text_field($_GET['server_name']);           // nombre del servidor
 
     /*Fin almacena informacion de formulario BLADE*/
 
     $global_data = array(
-                'key_id'           => $key_id,
+                'server_name'           => $server_name,
             );
 
-    $wpdb->insert($tabla_crud,$global_data);
+    $wpdb->insert($data_sql_objet,$global_data);
 
 
-    echo '----->'.$wpbc_db_version.'</br>';
-    echo '----->'.$key_id.'</br>';
-    echo '----->'.$table_name_ping.'</br>';
-    echo '----->'.$tabla_crud.'</br>';
+    echo '$wpbc_db_version_data         ----->'.$wpbc_db_version_data.'</br>';
+    echo '$table_data_name              ----->'.$table_data_name.'</br>';
+    echo '$data_sql_objet               ----->'.$data_sql_objet.'</br>';
+    echo '$sql_query                    ----->'.$sql_query.'</br>';
+    echo '$server_name                  ----->'.$server_name.'</br>';    
 
 }
 
+add_shortcode('kfp_ShortCode_Insert_post', 'Kfp_Insert_post');  // Crea shortcode en la pagina de inicio 
+
 //http://localhost/wordpress/api/?user_id=222&key_id=111
 
+/**** Fin procedimiento para ingreso de datos ****/
 
+/******************************************************************************************/
+// archivos     : wp-crud-bot.php
+// Funcion      : crud_install() 
+// Objetos      : $wpdb->insert
+// Descripcion  : 'Funcion para la creacion de la base de datos'
+/******************************************************************************************/
 
+/**** Inicio procedimiento para crear la base de datos ****/
 function crud_install()
 {
+
     /*Variables globales*/
-    global $wpdb;                                                      // datos del sistema
-    global $wpbc_db_version;                                           // Version del base de datos - utilizado para las actualizaciones
-    global $table_name_ping;                                            // Nombre de la tabla de General del sistema 
-    global $tabla_crud;                                                // nombre de la tabla de sistema
-    global $user_id;                                                   // ID del usuario
-    global $key_id;                                                    // ID del usuario
+    global $wpdb;                       // datos del sistema
+    global $wpbc_db_version_data;       // Version del base de datos - utilizado para las actualizaciones
+    global $table_data_name;            // Nombre de la base de datos
+    global $data_sql_objet;             // Objeto de Base de Datos
+    global $sql_query;                  // Almacena la consulta      
 
-    $table_name_file = $wpdb->prefix . $table_name_ping; 
+    $data_sql_objet = $wpdb->prefix . $table_data_name;
 
-    $sql_file = "CREATE TABLE " . $table_name_ping . " (
+    $sql_query = "CREATE TABLE " . $data_sql_objet . " (
         id int(11) NOT NULL AUTO_INCREMENT,
-        key_id VARCHAR (100) NOT NULL,
+        server_name VARCHAR (100) NOT NULL,
         create_at datetime NOT NULL DEFAULT NOW(),
         PRIMARY KEY (id)
     );"; 
 
-    dbDelta($sql_file); 
+    dbDelta($sql_query); 
 }
 
 crud_install();
+
+/**** Fin procedimiento para crear la base de datos ****/
+
+
+
 
 
 
