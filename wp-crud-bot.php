@@ -67,7 +67,7 @@ function Kfp_Insert_post()
 
 
 
-    $data_sql_objet = $wpdb->prefix . $table_data_name; 		               // objeto base de datos
+    $data_sql_objet = $wpdb->prefix . $table_data_name;                        // objeto base de datos
 
     /*Incio almacena informacion de formulario BLADE*/
     $ServerDate         = sanitize_text_field($_GET['ServerDate']);            // Fecha del Servidor
@@ -79,9 +79,10 @@ function Kfp_Insert_post()
 
     $global_data = array(
                 'ServerDate'          => $ServerDate,
-                'ServerName'          => $ServerName, 
-                'ServerArqu '         => $ServerArqu,
-                'ServerKernel'        => $ServerKernel,              
+                'ServerName'          => $ServerName,
+                'ServerArqu'          => $ServerArqu,
+                 'ServerKernel'          => $ServerKernel,
+                
             );
 
     $wpdb->insert($data_sql_objet,$global_data);
