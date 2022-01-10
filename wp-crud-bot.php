@@ -74,6 +74,11 @@ function Kfp_Insert_post()
     $ServerName         = sanitize_text_field($_GET['ServerName']);            // Nombre del Servidor
     $ServerArqu         = sanitize_text_field($_GET['ServerArqu']);            // Arquitectura del Servidor
     $ServerKernel       = sanitize_text_field($_GET['ServerKernel']);          // Kernel del servidor
+    $ServerFilesystem   = sanitize_text_field($_GET['ServerFilesystem']);      // Fichero de Archivos
+    $ServerFilesSize   = sanitize_text_field($_GET['ServerFilesSize']);      // Tamaño de archivo 
+    
+    
+    
 
     /*Fin almacena informacion de formulario BLADE*/
 
@@ -82,6 +87,8 @@ function Kfp_Insert_post()
                 'ServerName'          => $ServerName,
                 'ServerArqu'          => $ServerArqu,
                  'ServerKernel'          => $ServerKernel,
+                        'ServerFilesystem' => $ServerFilesystem,
+                        'ServerFilesSize'  => $ServerFilesSize
                 
             );
 
@@ -133,6 +140,8 @@ function crud_install()
         ServerName VARCHAR (100) NOT NULL,
         ServerArqu VARCHAR (100) NOT NULL,
         ServerKernel VARCHAR (100) NOT NULL,
+        ServerFilesystem VARCHAR (100) NOT NULL,
+        ServerFilesSize VARCHAR (100) NOT NULL,
         create_at datetime NOT NULL DEFAULT NOW(),
         PRIMARY KEY (id)
     );"; 
