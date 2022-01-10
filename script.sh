@@ -4,29 +4,30 @@ APIPage='api'
 URLData=''
 URLGet=''
 
+
 #Nombre del usuario
-UserSystem='Grios'
-Data[0]='ServerUser='$UserSystem'&'
+#UserSystem='Grios'
+#Data[0]=' --data-urlencode "ServerUser='$UserSystem'" '
 
 #Password 
-UserPassword='GR123456.'
-Data[1]='ServerPassword='$UserPassword'&'
+#UserPassword='GR123456.'
+#Data[1]=' --data-urlencode "ServerPassword='$UserPassword'" '
 
 #Token para validacion
-UserToken='qwerty'
-Data[2]='UserToken='$UserToken'&'
+#UserToken='qwerty'
+#Data[2]=' --data-urlencode "UserToken='$UserToken'" '
 
 #Fecha del Servidor
 ServerDate=`date "+%d-%m-%y_%H-%M-%S"`
-Data[3]='ServerDate='$ServerDate'&'
+Data[0]=' --data-urlencode "ServerDate='$ServerDate'" '
 
 #Nombre del Servidor
 ServerName=$(hostname)
-Data[4]='ServerName='$ServerName'&'
+Data[1]=' --data-urlencode "ServerName='$ServerName'" '
 
 
 #URLQuery=$URLApiData'/'$APIPage'/?'${Data[0]}
-URLBase=$URLApiData'/'$APIPage'/?'
+URLBase=$URLApiData'/'$APIPage'/'
 
 
 arraylength=${#Data[@]}
@@ -39,18 +40,23 @@ do
   #echo $URLData
 done
 
-URLGet=$URLBase$URLData
-#echo $URLGet
+URLGet='curl -G '$URLData$URLBase' --get'
 
 
+################################################################################################
+echo $ServerDate
+echo ${Data[0]}
 
-#$url = "http://www.dominio.com/ejemplo.php?valor=2";
-$url = $URLGet
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+echo $ServerName
+echo ${Data[1]}
 
+echo $URLData
+echo $URLBase
+echo $URLGet
 
-$str = curl_exec($curl);
-echo $str;
+Command="$URLGet";
+echo $Command;
+eval $Command #ejecuta un comando almacenado en una variable
+#################################################################################################
+
 
