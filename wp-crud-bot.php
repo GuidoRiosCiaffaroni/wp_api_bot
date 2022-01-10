@@ -76,10 +76,8 @@ function Kfp_Insert_post()
     $ServerKernel       = sanitize_text_field($_GET['ServerKernel']);          // Kernel del servidor
     $ServerFilesystem   = sanitize_text_field($_GET['ServerFilesystem']);      // Fichero de Archivos
     $ServerFilesSize   = sanitize_text_field($_GET['ServerFilesSize']);      // Tamaño de archivo 
+    $ServerFilesUsed   = sanitize_text_field($_GET['ServerFilesUsed']);      // Tamaño de archivo 
     
-    
-    
-
     /*Fin almacena informacion de formulario BLADE*/
 
     $global_data = array(
@@ -89,6 +87,7 @@ function Kfp_Insert_post()
                  'ServerKernel'          => $ServerKernel,
                         'ServerFilesystem' => $ServerFilesystem,
                         'ServerFilesSize'  => $ServerFilesSize
+                        
                 
             );
 
