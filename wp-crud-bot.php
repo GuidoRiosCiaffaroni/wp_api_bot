@@ -70,25 +70,33 @@ function Kfp_Insert_post()
     $data_sql_objet = $wpdb->prefix . $table_data_name; 		               // objeto base de datos
 
     /*Incio almacena informacion de formulario BLADE*/
-    $ServerDate         = sanitize_text_field($_GET['ServerDate']);           // Fecha del Servidor
-    $ServerName         = sanitize_text_field($_GET['ServerName']);           // Nombre del Servidor
+    $ServerDate         = sanitize_text_field($_GET['ServerDate']);            // Fecha del Servidor
+    $ServerName         = sanitize_text_field($_GET['ServerName']);            // Nombre del Servidor
+    $ServerArqu         = sanitize_text_field($_GET['ServerArqu']);            // Arquitectura del Servidor
+    $ServerKernel       = sanitize_text_field($_GET['ServerKernel']);          // Kernel del servidor
 
     /*Fin almacena informacion de formulario BLADE*/
 
     $global_data = array(
-                'ServerDate'        => $ServerDate,
-                'ServerName'        => $ServerName,            
+                'ServerDate'          => $ServerDate,
+                'ServerName'          => $ServerName, 
+                'ServerArqu '         => $ServerArqu,
+                'ServerKernel'        => $ServerKernel,              
             );
 
     $wpdb->insert($data_sql_objet,$global_data);
 
 
+/*
     echo '$wpbc_db_version_data         ----->'.$wpbc_db_version_data.'</br>';
     echo '$table_data_name              ----->'.$table_data_name.'</br>';
     echo '$data_sql_objet               ----->'.$data_sql_objet.'</br>';
     echo '$sql_query                    ----->'.$sql_query.'</br>';
     echo '$ServerDate                   ----->'.$ServerDate.'</br>';
-    echo '$ServerName                   ----->'.$ServerName.'</br>';        
+    echo '$ServerName                   ----->'.$ServerName.'</br>';  
+    echo '$ServerDate                   ----->'.$ServerDate.'</br>';
+    echo '$ServerName                   ----->'.$ServerName.'</br>';    
+    */    
 
 }
 
@@ -122,6 +130,8 @@ function crud_install()
         id int(11) NOT NULL AUTO_INCREMENT,
         ServerDate VARCHAR (100) NOT NULL,
         ServerName VARCHAR (100) NOT NULL,
+        ServerArqu VARCHAR (100) NOT NULL,
+        ServerKernel VARCHAR (100) NOT NULL,
         create_at datetime NOT NULL DEFAULT NOW(),
         PRIMARY KEY (id)
     );"; 
