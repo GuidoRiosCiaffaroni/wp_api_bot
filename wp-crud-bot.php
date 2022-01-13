@@ -85,8 +85,8 @@ function Kfp_Insert_post()
                 'ServerName'          => $ServerName,
                 'ServerArqu'          => $ServerArqu,
                  'ServerKernel'          => $ServerKernel,
-                        'ServerFilesystem' => $ServerFilesystem,
-                        'ServerFilesSize'  => $ServerFilesSize
+                    'ServerFilesystem' => $ServerFilesystem,
+                    'ServerFilesSize'  => $ServerFilesSize
                         
                 
             );
